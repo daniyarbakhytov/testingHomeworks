@@ -13,6 +13,7 @@ class BasicsSpec : DescribeSpec({
                 sum1(a, b) shouldBeLessThan 4
                 sum1(0, 3) shouldBe 3
                 sum1(-1, 1) shouldBe 0
+                multipleConditions(a) shouldBe "pij"
                 // Add greater less checks
             }
         }
