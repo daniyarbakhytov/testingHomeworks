@@ -1,4 +1,5 @@
 import io.kotlintest.shouldBe
+import io.kotlintest.shouldEqual
 import io.kotlintest.specs.DescribeSpec
 import java.util.*
 
@@ -8,7 +9,14 @@ class BinarySum : DescribeSpec({
             it("testing sum") {
                 val a = "101"
                 val b = "110"
-                println(Arrays.toString(sumOfBinaries(a, b)))
+                val c = "00001011"
+                var binaries = sumOfBinaries(a,b) // array of numbers of binary, array size in this method is 8
+                var str = Arrays.toString(sumOfBinaries(a,b)) // convert to String
+                str = str.replace(", ".toRegex(), "").replace("[", "").replace("]", "") // remove separates(", ", "]", "[")
+                str shouldBe c
+                binaries[4] shouldEqual 1
+                binaries[7] shouldBe 1
+
             }
         }
 
@@ -17,12 +25,14 @@ class BinarySum : DescribeSpec({
             it("testing swap") {
                 var first = 12
                 var second = 3
-                var mas = swapOfInts(first, second)
+                var mas = swapOfInts(first, second) // array which consist swapped integers with sum of them
+                var masWithTemp = swapWithTemp(first, second) // array which consist swapped integers with temp
                 first = mas[0]
                 second = mas[1]
-                println()
-                print("$first and $second")
-                // print("$first and $second")
+                first shouldBe 3
+                second shouldBe 12
+                first shouldEqual masWithTemp[0]
+                second shouldBe masWithTemp[1]
             }
         }
     }
@@ -63,6 +73,7 @@ fun sumOfBinaries(firstBinaryString: String, secondBinaryString: String): IntArr
     return summary
 }
 
+// swap через суммы обеих чисел
 fun swapOfInts(a: Int, b: Int): Array<Int> {
     var a = a
     var b = b
@@ -73,3 +84,12 @@ fun swapOfInts(a: Int, b: Int): Array<Int> {
 
 }
 
+// swap через темп
+fun swapWithTemp(a: Int, b: Int): Array<Int> {
+    var a = a
+    var b = b
+    var temp = a
+    a = b
+    b = temp
+    return arrayOf(a, b)
+}
